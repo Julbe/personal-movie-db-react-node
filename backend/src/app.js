@@ -20,7 +20,9 @@ app.get("/", (req, res) => {
     });
 });
 
-setupRoutes(app);
+if (process.env.NODE_ENV !== "test") {
+    await setupRoutes(app);
+}
 
 app.use(errorHandler);
 
