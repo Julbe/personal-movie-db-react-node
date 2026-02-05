@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 
+import { setupRoutes } from "./modules/registerRoutes.js";
+
 const app = express();
 
 app.use(cors());
@@ -15,6 +17,7 @@ app.get("/", (req, res) => {
     });
 });
 
+setupRoutes(app);
 
 
 export default app;
