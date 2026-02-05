@@ -32,8 +32,8 @@ describe("Movie module", () => {
         const res = await request(app).get("/api/movie/tt1375666");
 
         expect(res.status).toBe(200);
-        expect(res.body.data.Title).toBe("Inception");
-        expect(res.body.data.imdbID).toBe("tt1375666");
+        expect(res.body.Title).toBe("Inception");
+        expect(res.body.imdbID).toBe("tt1375666");
     });
 
     it("should return 400 for invalid imdbId format", async () => {
