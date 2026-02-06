@@ -1,8 +1,9 @@
+import { saveComparison } from "../comparsion/comparsion.model.js";
 import { compareMovies } from "./compare.service.js";
 
 const IMDB_REGEX = /^tt\d{7,8}$/;
 
-export default class ComparisonController {
+export default class CompareController {
     async compare(req, res, next) {
         try {
             const { imdbIds } = req.body;
@@ -70,6 +71,15 @@ export default class ComparisonController {
                     missing: result.missing,
                 });
             }
+
+
+            saveComparison({
+                imdbIds,
+                titles: result.movies.map((m) => (m.Title)),
+                movieCount: result.movies.length,
+                comparedAt: new Date(),
+            });
+
 
             return res.status(200).json({
                 movies: result.movies,
