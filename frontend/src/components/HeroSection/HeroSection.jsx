@@ -21,7 +21,7 @@ export default function HeroSection() {
                 Personal Movie DB
             </Typography>
             <Typography variant="h6" color="text.secondary" mb={4}>
-                Search and compare movies using IMDb data
+                Search movies using IMDb data
             </Typography>
             <SearchBar
                 onResults={setResults}
