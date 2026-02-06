@@ -16,6 +16,7 @@ app.get("/healthz", (req, res) => {
     res.json({
         status: "OK",
         service: "Personal Movie DB API.",
+        version: "1.0.0",
         time: new Date(),
     });
 });
