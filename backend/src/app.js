@@ -12,7 +12,7 @@ app.use(express.json());
 
 app.use(wrapResponse);
 
-app.get("/", (req, res) => {
+app.get("/healthz", (req, res) => {
     res.json({
         status: "OK",
         service: "Personal Movie DB API.",
@@ -20,9 +20,7 @@ app.get("/", (req, res) => {
     });
 });
 
-if (process.env.NODE_ENV !== "test") {
-    await setupRoutes(app);
-}
+await setupRoutes(app);
 
 app.use(errorHandler);
 
