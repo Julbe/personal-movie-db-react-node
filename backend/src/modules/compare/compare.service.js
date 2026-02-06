@@ -1,5 +1,5 @@
 import { fetchMovieById } from "../movie/movie.service.js";
-import { buildBoxOfficeComparison, buildCommonActors, buildCommonGenres, buildMetascoreComparison, buildRatingsComparison, buildReleaseYearsComparison, buildRuntimeComparison } from "./comparsion.helper.js";
+import { buildBoxOfficeComparison, buildCommonActors, buildCommonGenres, buildMetascoreComparison, buildRatingsComparison, buildReleaseYearsComparison, buildRuntimeComparison } from "./compare.helper.js";
 
 const movieAdapter = ({ Title, imdbID, imdbRating, Year, Runtime, Genre, Metascore, BoxOffice }) => ({
     Title, imdbID, imdbRating, Year, Runtime, Genre, Metascore, BoxOffice

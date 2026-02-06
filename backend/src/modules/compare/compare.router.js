@@ -4,7 +4,7 @@ import { Manager } from "../manager.js";
 const router = express.Router();
 
 router.post("/", (req, res, next) =>
-    Manager.Comparison.compare(req, res, next)
+    Manager.Compare.compare(req, res, next)
 );
 
 export default {

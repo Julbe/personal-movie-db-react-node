@@ -2,7 +2,7 @@ import { jest } from "@jest/globals";
 import request from "supertest";
 import express from "express";
 
-import comparisonRoutes from "./comparsion.router.js";
+import comparisonRoutes from "./compare.router.js";
 import { errorHandler } from "../../middleware/errorHandler.js";
 
 const app = express();
