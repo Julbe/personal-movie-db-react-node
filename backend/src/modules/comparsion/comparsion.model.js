@@ -1,11 +1,17 @@
-const recentComparisons = [];
+import { DataTypes } from "sequelize";
+import { sequelize } from "../../db/sequelize.js";
 
-export const saveComparison = (data) => {
-    recentComparisons.unshift(data);
-
-    if (recentComparisons.length > 10) {
-        recentComparisons.pop();
+export const Comparison = sequelize.define(
+    "Comparison",
+    {
+        id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+        imdbIds: { type: DataTypes.JSON, allowNull: false },
+        titles: { type: DataTypes.JSON, allowNull: false },
+        movieCount: { type: DataTypes.INTEGER, allowNull: false },
+        comparedAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
+    },
+    {
+        tableName: "comparisons",
+        timestamps: false,
     }
-};
-
-export const getRecentComparisons = () => recentComparisons;
+);
