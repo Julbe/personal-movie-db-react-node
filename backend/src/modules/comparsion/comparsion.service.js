@@ -1,5 +1,5 @@
 
-import { Comparison } from "./comparsion.model.js";
+import { Comparison } from "../../db/models/comparsion.model.js";
 
 export async function saveComparison(data) {
     return Comparison.create({

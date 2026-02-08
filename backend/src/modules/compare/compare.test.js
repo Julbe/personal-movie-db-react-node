@@ -15,7 +15,7 @@ describe("Movie Comparison", () => {
     it("should compare movies successfully", async () => {
         const saveComparisonMock = jest.fn().mockResolvedValue({ id: 1 });
 
-        jest.unstable_mockModule("./../comparsion/comparsion.repository.js", () => ({
+        jest.unstable_mockModule("./../comparsion/comparsion.service.js", () => ({
             saveComparison: saveComparisonMock,
             getRecentComparisons: jest.fn().mockResolvedValue([])
         }));
@@ -68,7 +68,7 @@ describe("Movie Comparison", () => {
 
     it("should fail with duplicate IDs", async () => {
         const saveComparisonMock = jest.fn().mockResolvedValue({ id: 1 });
-        jest.unstable_mockModule("./../comparsion/comparsion.repository.js", () => ({
+        jest.unstable_mockModule("./../comparsion/comparsion.service.js", () => ({
             saveComparison: saveComparisonMock,
             getRecentComparisons: jest.fn().mockResolvedValue([])
         }));
@@ -92,7 +92,7 @@ describe("Movie Comparison", () => {
 
     it("should fail when movie not found", async () => {
         const saveComparisonMock = jest.fn().mockResolvedValue({ id: 1 });
-        jest.unstable_mockModule("./../comparsion/comparsion.repository.js", () => ({
+        jest.unstable_mockModule("./../comparsion/comparsion.service.js", () => ({
             saveComparison: saveComparisonMock,
             getRecentComparisons: jest.fn().mockResolvedValue([])
         }));

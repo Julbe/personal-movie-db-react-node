@@ -20,7 +20,7 @@ describe("Recent Comparisons", () => {
             ]),
         };
 
-        jest.unstable_mockModule("./comparsion.model.js", () => ({
+        jest.unstable_mockModule("../../db/models/comparsion.model.js", () => ({
             Comparison: ComparisonMock,
         }));
 

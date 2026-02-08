@@ -1,4 +1,4 @@
-import { getRecentComparisons } from "./comparsion.repository.js";
+import { getRecentComparisons } from "./comparsion.service.js";
 
 export default class ComparisonController {
     async recent(req, res) {

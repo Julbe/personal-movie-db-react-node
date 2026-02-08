@@ -1,4 +1,4 @@
-import { saveComparison } from "../comparsion/comparsion.repository.js";
+import { saveComparison } from "../comparsion/comparsion.service.js";
 import { compareMovies } from "./compare.service.js";
 
 const IMDB_REGEX = /^tt\d{7,8}$/;

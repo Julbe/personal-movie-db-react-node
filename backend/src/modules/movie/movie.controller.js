@@ -1,3 +1,4 @@
+import { validateImdbId } from "../../utils/validations.js";
 import { fetchMovieById } from "./movie.service.js";
 
 export default class MovieController {
@@ -5,7 +6,7 @@ export default class MovieController {
         try {
             const { imdbId } = req.params;
 
-            if (!/^tt\d{7,8}$/.test(imdbId)) {
+            if (!validateImdbId(imdbId)) {
                 return res.status(400).json({
                     Response: "False",
                     Error:
