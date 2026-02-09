@@ -72,8 +72,42 @@ export function WatchlistProvider({ children }) {
         }
     }
 
+    // Compare
+    const MAX_COMPARE = 5;
+
+    const [compareList, setCompareList] = useState([]);
+
+    const addToCompare = (movie) => {
+        setCompareList(prev => {
+            if (!movie?.imdbID) return prev;
+            if (prev.some(m => m.imdbID === movie.imdbID)) return prev;
+            if (prev.length >= MAX_COMPARE) return prev;
+            return [...prev, movie];
+        });
+    };
+
+    const removeFromCompare = (imdbID) => {
+        setCompareList(prev => prev.filter(m => m.imdbID !== imdbID));
+    };
+
+    const clearCompare = () => setCompareList([]);
+
     return (
-        <WatchlistContext.Provider value={{ items, allItems, loading, refresh, isInWatchlist, toggle, getItem, update, refreshAll }}>
+        <WatchlistContext.Provider value={{
+            items,
+            allItems,
+            loading,
+            refresh,
+            isInWatchlist,
+            toggle,
+            getItem,
+            update,
+            refreshAll,
+            compareList,
+            addToCompare,
+            removeFromCompare,
+            clearCompare,
+        }}>
             {children}
         </WatchlistContext.Provider>
     );
