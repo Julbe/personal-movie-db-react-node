@@ -6,15 +6,25 @@ const WatchlistContext = createContext(null);
 
 export function WatchlistProvider({ children }) {
     const [items, setItems] = useState([]);
+    const [allItems, setAllItems] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    async function refresh() {
+    async function refresh(params = { sort: "dateAdded", order: "desc" }) {
         setLoading(true);
         try {
-            const data = await watchlistApi.list({ sort: "dateAdded", order: "desc" });
+            const data = await watchlistApi.list(params);
             setItems(Array.isArray(data) ? data : []);
         } finally {
             setLoading(false);
+        }
+    }
+
+    async function refreshAll() {
+        try {
+            const data = await watchlistApi.list();
+            setAllItems(Array.isArray(data) ? data : []);
+        } catch (error) {
+            console.warn(error);
         }
     }
 
@@ -27,15 +37,15 @@ export function WatchlistProvider({ children }) {
 
     const byId = useMemo(() => new Map(items.map((x) => [x.imdbId, x])), [items]);
     const getItem = (imdbId) => byId.get(imdbId);
+
     async function toggle(imdbId) {
         const exists = isInWatchlist(imdbId);
+        const prev = items;
 
         if (exists) {
-            const prev = items;
             setItems((cur) => cur.filter((x) => x.imdbId !== imdbId));
             try {
                 await watchlistApi.remove(imdbId);
-                await refresh();
             } catch (e) {
                 setItems(prev);
                 throw e;
@@ -56,16 +66,14 @@ export function WatchlistProvider({ children }) {
         setItems((cur) => cur.map((x) => (x.imdbId === imdbId ? { ...x, ...patch } : x)));
         try {
             await watchlistApi.patch(imdbId, patch);
-            await refresh();
         } catch (e) {
             setItems(prev);
             throw e;
         }
     }
 
-
     return (
-        <WatchlistContext.Provider value={{ items, loading, refresh, isInWatchlist, toggle, getItem, update }}>
+        <WatchlistContext.Provider value={{ items, allItems, loading, refresh, isInWatchlist, toggle, getItem, update, refreshAll }}>
             {children}
         </WatchlistContext.Provider>
     );
