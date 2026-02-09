@@ -4,10 +4,9 @@ import { useWatchlist } from "../../context/WatchlistContext";
 import { useState } from "react";
 
 
-export default function SearchResults({ results, onSelectMovie }) {
+export default function SearchResults({ results, onSelectMovie, selectMode = false }) {
 
     const { isInWatchlist, toggle } = useWatchlist();
-
     const [saving, setSaving] = useState(false);
 
     const handleQuickAdd = async (movie) => {
@@ -15,6 +14,7 @@ export default function SearchResults({ results, onSelectMovie }) {
         await toggle(movie.imdbID);
         setSaving(false);
     };
+
 
     return (
         <Box maxWidth={800} mx="auto">
@@ -25,6 +25,7 @@ export default function SearchResults({ results, onSelectMovie }) {
                     isInWatchlist={isInWatchlist(movie.imdbID)}
                     onQuickAdd={handleQuickAdd}
                     saving={saving}
+                    selectMode={selectMode}
                     onSelect={onSelectMovie ?? (() => { })}
                 />
             ))}

@@ -71,7 +71,7 @@ export default function MovieDetailsModal({ open, imdbId, onClose, onCompare }) 
     };
 
     const handleCompare = () => {
-        onCompare?.(imdbId);
+        onCompare?.(data);
         onClose?.();
     };
 

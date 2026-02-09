@@ -6,15 +6,24 @@ import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
 import MovieDetailsModal from "../Movie/MovieDetailsModal.jsx";
 import { useNavigate } from "react-router-dom";
+import { useWatchlist } from "../../context/WatchlistContext.jsx";
 
 export default function HeroSection() {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [selectedImdbId, setSelectedImdbId] = useState(null);
+    const { addToCompare } = useWatchlist();
 
     const navigate = useNavigate();
-    const handleCompare = async (id) => navigate(`/compare?id=${encodeURIComponent(id)}`);
+    const handleCompare = async (movie) => {
+        addToCompare({
+            Poster: movie.Poster,
+            Title: movie.Title,
+            imdbID: movie.imdbID
+        });
+        navigate("/compare")
+    };
 
 
     return (

@@ -116,7 +116,7 @@ export default function WatchlistGridCard({
                     )}
 
                     <Tooltip title="Compare">
-                        <IconButton size="small" onClick={() => onCompare?.(item.imdbId)}>
+                        <IconButton size="small" onClick={() => onCompare?.(item)}>
                             <CompareIcon />
                         </IconButton>
                     </Tooltip>
