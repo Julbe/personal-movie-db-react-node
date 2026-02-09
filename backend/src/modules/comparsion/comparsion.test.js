@@ -2,25 +2,38 @@ import { expect, jest } from "@jest/globals";
 import request from "supertest";
 import express from "express";
 
-import compareRoutes from "../compare/compare.router.js";
-import comparisonRoutes from "./comparsions.router.js";
-
-import { errorHandler } from "../../middleware/errorHandler.js";
-
-const app = express();
-
-app.use(express.json());
-app.use("/api/compare", compareRoutes.router);
-app.use("/api/comparisons", comparisonRoutes.router);
-
-app.use(errorHandler);
-
 describe("Recent Comparisons", () => {
     beforeEach(() => {
+        jest.resetModules();
         jest.clearAllMocks();
     });
 
     it("should compare movies successfully", async () => {
+        const ComparisonMock = {
+            create: jest.fn().mockResolvedValue({}),
+            findAll: jest.fn().mockResolvedValue([
+                {
+                    imdbIds: ["tt0111161", "tt0468569"],
+                    movieCount: 2,
+                    comparedAt: new Date().toISOString(),
+                },
+            ]),
+        };
+
+        jest.unstable_mockModule("../../db/models/comparsion.model.js", () => ({
+            Comparison: ComparisonMock,
+        }));
+
+        const compareRoutes = await import("../compare/compare.router.js");
+        const comparisonRoutes = await import("./comparsions.router.js");
+        const { errorHandler } = await import("../../middleware/errorHandler.js");
+
+        const app = express();
+        app.use(express.json());
+        app.use("/api/compare", compareRoutes.default.router ?? compareRoutes.router);
+        app.use("/api/comparisons", comparisonRoutes.default.router ?? comparisonRoutes.router);
+        app.use(errorHandler);
+
         global.fetch = jest.fn()
             .mockResolvedValueOnce({
                 ok: true,
@@ -53,12 +66,9 @@ describe("Recent Comparisons", () => {
                 }),
             });
 
-
         const res = await request(app)
             .post("/api/compare")
-            .send({
-                imdbIds: ["tt0111161", "tt0468569"],
-            });
+            .send({ imdbIds: ["tt0111161", "tt0468569"] });
 
         const comparisons = await request(app).get("/api/comparisons/recent");
 
@@ -66,6 +76,7 @@ describe("Recent Comparisons", () => {
         expect(res.body.movieCount).toBe(2);
         expect(res.body).toHaveProperty("comparison");
 
+        expect(comparisons.status).toBe(200);
         expect(comparisons.body[0]).toEqual(
             expect.objectContaining({
                 imdbIds: expect.any(Array),
@@ -73,6 +84,7 @@ describe("Recent Comparisons", () => {
                 comparedAt: expect.any(String),
             })
         );
+        expect(ComparisonMock.create).toHaveBeenCalled();
+        expect(ComparisonMock.findAll).toHaveBeenCalled();
     });
-
 });

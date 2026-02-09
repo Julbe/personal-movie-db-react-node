@@ -1,4 +1,4 @@
-import { saveComparison } from "../comparsion/comparsion.model.js";
+import { saveComparison } from "../comparsion/comparsion.service.js";
 import { compareMovies } from "./compare.service.js";
 
 const IMDB_REGEX = /^tt\d{7,8}$/;
@@ -73,7 +73,7 @@ export default class CompareController {
             }
 
 
-            saveComparison({
+            await saveComparison({
                 imdbIds,
                 titles: result.movies.map((m) => (m.Title)),
                 movieCount: result.movies.length,
