@@ -258,7 +258,7 @@ function PosterCard({ movie, onRemove }) {
                 position: "relative",
             }}
         >
-            <IconButton
+            <IconButton aria-label={`remove-${movie.imdbID}`}
                 onClick={onRemove}
                 size="small"
                 sx={{

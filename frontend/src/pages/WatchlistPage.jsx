@@ -164,9 +164,9 @@ export default function WatchlistPage() {
 
                         <FormControl sx={{ minWidth: 160 }}>
                             <InputLabel>Sort</InputLabel>
-                            <Select label="Sort" value={sort} onChange={(e) => setSort(e.target.value)}>
+                            <Select data-testid="sort-select" label="Sort" value={sort} onChange={(e) => setSort(e.target.value)}>
                                 <MenuItem value="dateAdded">Date added</MenuItem>
-                                <MenuItem value="title">Title</MenuItem>
+                                <MenuItem data-testid="sort-select-title" value="title">Title</MenuItem>
                                 <MenuItem value="year">Year</MenuItem>
                                 <MenuItem value="rating">Rating</MenuItem>
                             </Select>
