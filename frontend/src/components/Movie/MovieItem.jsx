@@ -5,7 +5,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import AddIcon from '@mui/icons-material/Add';
 
 export default function MovieItem({ movie,
-    onSelect, onQuickAdd, isInWatchlist = false }) {
+    onSelect, onQuickAdd, isInWatchlist = false, saving = false, selectMode = false }) {
     return (
         <Box
             onClick={() => onSelect(movie)}
@@ -37,7 +37,7 @@ export default function MovieItem({ movie,
                     sx={{ mt: 1 }}
                 />
             </Box>
-            <Box
+            {!selectMode && (<Box
                 onClick={(e) => e.stopPropagation()}
                 display="flex"
                 gap={1}
@@ -55,12 +55,27 @@ export default function MovieItem({ movie,
                         <IconButton
                             onClick={() => onQuickAdd(movie)}
                             color="primary"
+                            disabled={saving}
                         >
                             <AddIcon />
                         </IconButton>
                     </Tooltip>
                 )}
-            </Box>
+            </Box>)}
+            {selectMode && (<Box
+                onClick={(e) => e.stopPropagation()}
+                display="flex"
+                gap={1}
+            >
+                <Tooltip title="Add to compare">
+                    <IconButton
+                        onClick={() => onSelect(movie)}
+                        color="primary"
+                    >
+                        <AddIcon />
+                    </IconButton>
+                </Tooltip>
+            </Box>)}
         </Box>
     );
 }

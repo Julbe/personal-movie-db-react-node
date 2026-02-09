@@ -4,11 +4,27 @@ import logo from "../../assets/film.svg";
 import { useState } from "react";
 import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
+import MovieDetailsModal from "../Movie/MovieDetailsModal.jsx";
+import { useNavigate } from "react-router-dom";
+import { useWatchlist } from "../../context/WatchlistContext.jsx";
 
 export default function HeroSection() {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [selectedImdbId, setSelectedImdbId] = useState(null);
+    const { addToCompare } = useWatchlist();
+
+    const navigate = useNavigate();
+    const handleCompare = async (movie) => {
+        addToCompare({
+            Poster: movie.Poster,
+            Title: movie.Title,
+            imdbID: movie.imdbID
+        });
+        navigate("/compare")
+    };
+
 
     return (
         <Box textAlign="center" mt={8}>
@@ -35,7 +51,18 @@ export default function HeroSection() {
                     {error}
                 </Alert>
             )}
-            <SearchResults results={results} />
+            <SearchResults
+                results={results}
+                onSelectMovie={(movie) => {
+                    setSelectedImdbId(movie.imdbID)
+                }}
+            />
+            <MovieDetailsModal
+                open={Boolean(selectedImdbId)}
+                imdbId={selectedImdbId}
+                onClose={() => setSelectedImdbId(null)}
+                onCompare={handleCompare}
+            />
         </Box>
     );
 }

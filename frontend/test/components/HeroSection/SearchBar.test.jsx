@@ -1,9 +1,9 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { vi } from "vitest";
-import SearchBar from "./SearchBar";
-import * as movieApi from "../../api/movieApi";
+import SearchBar from "../../../src/components/HeroSection/SearchBar.jsx";
+import * as movieApi from "../../../src/api/search.api.js";
 
-vi.mock("../../api/movieApi", () => ({
+vi.mock("../../../src/api/search.api.js", () => ({
     searchMovies: vi.fn(),
 }));
 
