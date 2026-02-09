@@ -21,8 +21,8 @@ Full-stack application to search, compare movies and manage a personal watchlist
 - Render (backend deployment)
 
 ## Live Demo
-[Frontend](https://personal-movie-db-react-node-4837qksnr.vercel.app?_vercel_share=9dS6oZxvIX25PGKSB7omzwHjcEOX74ql)
-[Backend](https://personal-movie-db-react-node.onrender.com)
+- [Frontend](https://personal-movie-db-react-node.vercel.app/)
+- [Backend](https://personal-movie-db-react-node.onrender.com/healthz)
 
 
 ## Environment Variables
