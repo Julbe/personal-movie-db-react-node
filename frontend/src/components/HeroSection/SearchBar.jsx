@@ -1,5 +1,5 @@
 import { Box, Button, TextField } from "@mui/material";
-import { searchMovies } from "../../api/movieApi";
+import { searchMovies } from "../../api/search.api";
 import { useState } from "react";
 
 
@@ -8,24 +8,6 @@ export default function SearchBar({ onResults, onLoading, onError }) {
     const [query, setQuery] = useState("");
 
     const handleSearch = async () => {
-        // onResults([
-        //     {
-        //         imdbID: "tt0111161",
-        //         Title: "The Shawshank Redemption",
-        //         Year: "1994",
-        //         Type: "movie",
-        //         inWatchlist: false,
-        //         Poster: "https://m.media-amazon.com/images/M/MV5BMDAyY2FhYjctNDc5OS00MDNlLThiMGUtY2UxYWVkNGY2ZjljXkEyXkFqcGc@._V1_SX300.jpg"
-        //     },
-        //     {
-        //         imdbID: "tt3322940",
-        //         Title: "Annabelle",
-        //         Year: "2014",
-        //         Type: "movie",
-        //         inWatchlist: false,
-        //         Poster: "https://m.media-amazon.com/images/M/MV5BNjkyMDU5ZWQtZDhkOC00ZWFjLWIyM2MtZWFhMDUzNjdlNzU2XkEyXkFqcGc@._V1_SX300.jpg"
-        //     }
-        // ]);
         onLoading(true);
         onError(null);
         try {

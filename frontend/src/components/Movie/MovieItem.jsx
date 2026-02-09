@@ -5,7 +5,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import AddIcon from '@mui/icons-material/Add';
 
 export default function MovieItem({ movie,
-    onSelect, onQuickAdd, isInWatchlist = false }) {
+    onSelect, onQuickAdd, isInWatchlist = false, saving = false }) {
     return (
         <Box
             onClick={() => onSelect(movie)}
@@ -55,6 +55,7 @@ export default function MovieItem({ movie,
                         <IconButton
                             onClick={() => onQuickAdd(movie)}
                             color="primary"
+                            disabled={saving}
                         >
                             <AddIcon />
                         </IconButton>
