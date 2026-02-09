@@ -59,7 +59,7 @@ export default class WatchlistController {
             const order = req.query.order || "desc";
             const filter = req.query.filter;
 
-            const watchedParsed = req.query.watched ? parseBooleanQuery(req.query.watched) : undefined;
+            const watchedParsed = req.query.watched !== undefined ? parseBooleanQuery(req.query.watched) : undefined;
             if (watchedParsed === "invalid") {
                 return res.status(400).json({ error: "watched must be true or false" });
             }
@@ -115,7 +115,7 @@ export default class WatchlistController {
             if (hasMyRating && !validateRating(req.body.myRating)) {
                 return res.status(400).json({ error: "myRating must be between 1 and 10" });
             }
-            const watchedParsed = req.body.watched ? parseBooleanQuery(req.body.watched) : undefined;
+            const watchedParsed = req.body?.watched !== undefined ? parseBooleanQuery(req.body.watched) : undefined;
             if (hasWatched && watchedParsed === "invalid") {
                 return res.status(400).json({ error: "watched must be boolean" });
             }

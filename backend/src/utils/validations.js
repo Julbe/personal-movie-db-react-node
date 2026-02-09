@@ -12,5 +12,6 @@ export function parseBooleanQuery(v) {
     if (v === undefined) return undefined;
     if (v === "true") return true;
     if (v === "false") return false;
+    if (typeof v === "boolean") return v;
     return "invalid";
 }
