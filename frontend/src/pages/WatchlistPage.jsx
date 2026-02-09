@@ -18,12 +18,12 @@ import { useWatchlist } from "../context/WatchlistContext";
 import MovieDetailsModal from "../components/Movie/MovieDetailsModal";
 import WatchlistList from "../components/Watchlist/WatchlistList";
 import WatchlistGrid from "../components/Watchlist/WatchlistGrid";
-import StatisticsDashboard from "../components/Watchlist/StatisticsDashboard";
+import StatisticsDashboard from "../components/Watchlist/Statistics/StatisticsDashboard";
 import { useNavigate } from "react-router-dom";
 
 
 export default function WatchlistPage() {
-    const { items, allItems, loading, refresh, toggle, update, refreshAll } = useWatchlist();
+    const { items, allItems, loading, refresh, toggle, update, refreshAll, addToCompare } = useWatchlist();
 
     const [view, setView] = useState("grid");
 
@@ -49,6 +49,12 @@ export default function WatchlistPage() {
 
         refresh(params).catch((e) => setError(e.message || "Failed to load watchlist"));
     }, [sort, order, watched, query]);
+
+    useEffect(() => {
+        refreshAll().catch((e) =>
+            setError(e.message || "Failed to load dashboard stats")
+        );
+    }, []);
 
     const handleSearch = async () => {
         setError(null);
@@ -96,7 +102,14 @@ export default function WatchlistPage() {
         }
     };
 
-    const handleCompare = async (id) => navigate(`/compare?id=${encodeURIComponent(id)}`);
+    const handleCompare = async (movie) => {
+        addToCompare({
+            Poster: movie.poster,
+            Title: movie.title,
+            imdbID: movie.imdbId
+        });
+        navigate("/compare");
+    };
 
 
     return (
