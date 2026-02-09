@@ -1,17 +1,24 @@
 import { useState } from 'react'
-import { Container } from '@mui/material'
+import { Routes, Route, Navigate } from "react-router-dom";
 
 // import './App.css'
 import Home from "./pages/Home";
+import AppLayout from './components/Layout/AppLayout';
+import WatchlistPage from './pages/WatchlistPage';
+import ComparePage from './pages/ComparePage';
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <Container maxWidth="md">
-      <Home />
-    </Container>
+    <AppLayout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/watchlist" element={<WatchlistPage />} />
+        <Route path="/compare" element={<ComparePage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </AppLayout>
   )
 }
 
