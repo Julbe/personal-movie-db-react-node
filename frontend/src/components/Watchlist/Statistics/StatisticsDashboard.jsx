@@ -9,7 +9,7 @@ import {
     Divider,
     Chip,
 } from "@mui/material";
-import { computeWatchlistStats } from "./compute.helper";
+import { computeWatchlistStats } from "../compute.helper";
 
 export default function StatisticsDashboard({ watchlist }) {
     const stats = useMemo(() => computeWatchlistStats(watchlist), [watchlist]);
