@@ -5,12 +5,16 @@ import { useState } from "react";
 import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
 import MovieDetailsModal from "../Movie/MovieDetailsModal.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function HeroSection() {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [selectedImdbId, setSelectedImdbId] = useState(null);
+
+    const navigate = useNavigate();
+    const handleCompare = async (id) => navigate(`/compare?id=${encodeURIComponent(id)}`);
 
 
     return (
@@ -48,7 +52,7 @@ export default function HeroSection() {
                 open={Boolean(selectedImdbId)}
                 imdbId={selectedImdbId}
                 onClose={() => setSelectedImdbId(null)}
-                onCompare={(id) => console.log("Go to compare with", id)}
+                onCompare={handleCompare}
             />
         </Box>
     );
